@@ -15,11 +15,12 @@ var inputs = [    { pin: '16', gpio: '23', value: null },
 var i;
 for (i in inputs) {
     console.log('opening GPIO port ' + inputs[i].gpio + ' on pin ' + inputs[i].pin + ' as input');
-    rpio.open(inputs[i].pin, rpio.INPUT);
+    rpio.open(inputs[i].pin, rpio.OUTPUT, rpio.LOW); // , rpio.INPUT, rpio.POLL_LOW);
 } // if
 
 // ------------------------------------------------------------------------
 // read and store the GPIO inputs twice a second
+/**
 setInterval( function () {
     var value = rpio.read(inputs[0].pin);
     console.log('read pin ' + inputs[0].pin + ' value = ' + value);
@@ -29,6 +30,17 @@ setInterval( function () {
     console.log('read pin ' + inputs[1].pin + ' value = ' + value);
     inputs[1].value = value.toString();
 }, 500); // setInterval
+ **/
+
+setInterval( function () {
+    /* On for 1 second */
+    rpio.write(inputs[0].pin, rpio.HIGH);
+    rpio.sleep(1);
+
+    /* Off for half a second (500ms) */
+    rpio.write(inputs[0].pin, rpio.LOW);
+    rpio.msleep(500);
+}, 2000); // setInterval
 
 // ------------------------------------------------------------------------
 // configure Express to serve index.html and any other static pages stored
