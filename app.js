@@ -1,6 +1,7 @@
 var http      = require('http');
 var express   = require('express');
-var gpio      = require('pi-gpio');
+//var gpio      = require('pi-gpio');
+var rpio = require('rpio');
 
 var app       = express();
 
@@ -14,32 +15,19 @@ var inputs = [    { pin: '16', gpio: '23', value: null },
 var i;
 for (i in inputs) {
     console.log('opening GPIO port ' + inputs[i].gpio + ' on pin ' + inputs[i].pin + ' as input');
-    gpio.open(inputs[i].pin, "input", function (err) {
-        if (err) {
-            throw err;
-        }
-    }); // gpio.open
+    rpio.open(inputs[i].pin, rpio.INPUT);
 } // if
 
 // ------------------------------------------------------------------------
 // read and store the GPIO inputs twice a second
 setInterval( function () {
-    gpio.read(inputs[0].pin, function (err, value) {
-        if (err) {
-            throw err;
-        }
-        console.log('read pin ' + inputs[0].pin + ' value = ' + value);
-        // update the inputs object
-        inputs[0].value = value.toString(); // store value as a string
-    });
+    var value = rpio.read(inputs[0].pin);
+    console.log('read pin ' + inputs[0].pin + ' value = ' + value);
+    inputs[0].value = value.toString();
 
-    gpio.read(inputs[1].pin, function (err, value) {
-        if (err) {
-            throw err;
-        }
-        console.log('read pin ' + inputs[1].pin + ' value = ' + value);
-        inputs[1].value = value.toString();
-    });
+    var value = rpio.read(inputs[1].pin);
+    console.log('read pin ' + inputs[1].pin + ' value = ' + value);
+    inputs[1].value = value.toString();
 }, 500); // setInterval
 
 // ------------------------------------------------------------------------
@@ -93,7 +81,7 @@ process.on('SIGINT', function() {
 
     console.log("closing GPIO...");
     for (i in inputs) {
-        gpio.close(inputs[i].pin);
+        rpio.close(inputs[i].pin);
     }
     process.exit();
 });
