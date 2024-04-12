@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/mattroth/bkglas-waca#readme",
   "dependencies": {
-    "express": "^4.19.2"
+    "connect": "^3.7.0",
+    "express": "^4.19.2",
+    "pi-gpio": "^0.0.8"
   }
 }
