@@ -18,7 +18,7 @@ var inputs = [
 var i;
 for (i in inputs) {
     console.log('opening GPIO port ' + inputs[i].gpio + ' on pin ' + inputs[i].pin + ' as input');
-    rpio.open(inputs[i].pin, rpio.OUTPUT, rpio.LOW); // , rpio.INPUT, rpio.POLL_LOW);
+    rpio.open(inputs[i].pin, rpio.OUTPUT, rpio.HIGH); // , rpio.INPUT, rpio.POLL_LOW);
 } // if
 
 // ------------------------------------------------------------------------
