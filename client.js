@@ -1,5 +1,5 @@
 window.onload = function () {
-    $('input:button').click(function() {
+    $('button').click(function() {
         var url = document.URL + 'button/' + $(this).attr('value') + '/press';
         console.log('Pressing button: ' + url);
 
