@@ -1,6 +1,6 @@
 window.onload = function () {
-    $( "button" ).on( "click", function() {
-        var url = document.URL + '/button/' + $(this).value + '/press';
+    $('input:button').click(function() {
+        var url = document.URL + 'button/' + $(this).attr('value') + '/press';
         console.log('Pressing button: ' + url);
 
         $.getJSON(url, function (data) {
