@@ -57,21 +57,20 @@ app.use(express.static(__dirname));
 
 app.get('/button/:id/press', function (req, res) {
     console.log('received API request BUTTON_PRESS: ' + req.params.id);
+    var buttonId = req.params.id;
 
-    for (var i in inputs){
-        if ((req.params.id === inputs[i].gpio)) {
-            rpio.write(inputs[i].pin, rpio.HIGH);
-            rpio.msleep(200);
-            rpio.write(inputs[i].pin, rpio.LOW);
+    if (inputs[buttonId]) {
+        rpio.write(inputs[buttonId].pin, rpio.HIGH);
+        rpio.msleep(200);
+        rpio.write(inputs[buttonId].pin, rpio.LOW);
 
-            // send to client an inputs object as a JSON string
-            res.send('Button pressed: ' + inputs[i]);
-            return;
-        }
-    } // for
+        // send to client an inputs object as a JSON string
+        res.send('Button pressed: ' + inputs[buttonId]);
+        return;
+    }
 
     console.log('invalid input port');
-    res.status(403).send('dont recognise that input port number ' + req.params.id);
+    res.status(403).send('dont recognise input buttonId: ' + req.params.id);
 }); // apt.get()
 
 app.get('/inputs/:id', function (req, res) {
