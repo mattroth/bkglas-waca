@@ -7,8 +7,8 @@ var app       = express();
 
 // input port objects for our example
 var inputs = [
-    { pin: '15', gpio: '22', value: null },
     { pin: '7', gpio: '4', value: null },
+    { pin: '15', gpio: '22', value: null },
     { pin: '31', gpio: '6', value: null },
     { pin: '37', gpio: '26', value: null },
 ];
@@ -40,9 +40,9 @@ setInterval( function () {
     console.log('Loop  #' + l++);
 
     for (i in inputs) {
-        rpio.write(inputs[0].pin, rpio.HIGH);
+        rpio.write(inputs[i].pin, rpio.HIGH);
         rpio.sleep(1);
-        rpio.write(inputs[0].pin, rpio.LOW);
+        rpio.write(inputs[i].pin, rpio.LOW);
     }
 }, 5000); // setInterval
 
