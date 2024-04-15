@@ -6,8 +6,11 @@ var rpio = require('rpio');
 var app       = express();
 
 // input port objects for our example
-var inputs = [    { pin: '16', gpio: '23', value: null },
-    { pin: '22', gpio: '25', value: null }
+var inputs = [
+    { pin: '16', gpio: '23', value: null },
+    { pin: '22', gpio: '25', value: null },
+    { pin: '11', gpio: '17', value: null },
+    { pin: '15', gpio: '22', value: null },
 ];
 
 // -----------------------------------------------------------------------
@@ -39,11 +42,15 @@ setInterval( function () {
     /* On for 2 second */
     rpio.write(inputs[0].pin, rpio.HIGH);
     rpio.write(inputs[1].pin, rpio.LOW);
+    rpio.write(inputs[2].pin, rpio.HIGH);
+    rpio.write(inputs[3].pin, rpio.LOW);
     rpio.sleep(2);
 
     /* Off for 1 second (1000ms) */
     rpio.write(inputs[0].pin, rpio.LOW);
     rpio.write(inputs[1].pin, rpio.HIGH);
+    rpio.write(inputs[2].pin, rpio.LOW);
+    rpio.write(inputs[3].pin, rpio.HIGH);
     rpio.sleep(1);
 }, 3000); // setInterval
 
