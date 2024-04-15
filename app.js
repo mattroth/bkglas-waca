@@ -30,17 +30,17 @@ setInterval( function () {
     console.log('read pin ' + inputs[1].pin + ' value = ' + value);
     inputs[1].value = value.toString();
 }, 500); // setInterval
- **/
+**/
 
 setInterval( function () {
-    /* On for 1 second */
+    /* On for 2 second */
     rpio.write(inputs[0].pin, rpio.HIGH);
-    rpio.sleep(1);
+    rpio.sleep(2);
 
-    /* Off for half a second (500ms) */
+    /* Off for 1 second (1000ms) */
     rpio.write(inputs[0].pin, rpio.LOW);
-    rpio.msleep(500);
-}, 2000); // setInterval
+    rpio.sleep(1);
+}, 3500); // setInterval
 
 // ------------------------------------------------------------------------
 // configure Express to serve index.html and any other static pages stored
