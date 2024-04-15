@@ -1,4 +1,15 @@
 window.onload = function () {
+    $( "button" ).on( "click", function() {
+        var url = document.URL + '/button/' + $(this).value + '/press';
+        console.log('Pressing button: ' + url);
+
+        $.getJSON(url, function (data) {
+            console.log('API response received: ' + JSON.stringify(data));
+        });
+    } );
+
+
+    /**
     var url,
         i,
         ports = [23, 25];  // the GPIO ports we will read
@@ -18,5 +29,6 @@ window.onload = function () {
             });
         } // for
     }, 1000); // setInterval
+     **/
 
 }; //onload
