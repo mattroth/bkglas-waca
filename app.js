@@ -35,6 +35,7 @@ setInterval( function () {
 }, 500); // setInterval
 **/
 
+/**
 var l = 0;
 setInterval( function () {
     console.log('Loop  #' + l++);
@@ -45,6 +46,7 @@ setInterval( function () {
         rpio.write(inputs[i].pin, rpio.LOW);
     }
 }, 5000); // setInterval
+**/
 
 // ------------------------------------------------------------------------
 // configure Express to serve index.html and any other static pages stored
