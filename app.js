@@ -52,6 +52,26 @@ setInterval( function () {
 app.use(express.static(__dirname));
 
 // Express route for incoming requests for a single input
+
+app.get('/button/:id/press', function (req, res) {
+    console.log('received API request BUTTON_PRESS: ' + req.params.id);
+
+    for (var i in inputs){
+        if ((req.params.id === inputs[i].gpio)) {
+            rpio.write(inputs[i].pin, rpio.HIGH);
+            rpio.msleep(200);
+            rpio.write(inputs[i].pin, rpio.LOW);
+
+            // send to client an inputs object as a JSON string
+            res.send('Button pressed: ' + inputs[i]);
+            return;
+        }
+    } // for
+
+    console.log('invalid input port');
+    res.status(403).send('dont recognise that input port number ' + req.params.id);
+}); // apt.get()
+
 app.get('/inputs/:id', function (req, res) {
     var i;
 

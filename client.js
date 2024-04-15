@@ -20,6 +20,3 @@ window.onload = function () {
     }, 1000); // setInterval
 
 }; //onload
-
-
-
