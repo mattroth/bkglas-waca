@@ -7,10 +7,11 @@ var app       = express();
 
 // input port objects for our example
 var inputs = [
-    { pin: '7', gpio: '4', value: null },
-    { pin: '15', gpio: '22', value: null },
-    { pin: '31', gpio: '6', value: null },
-    { pin: '37', gpio: '26', value: null },
+    { pin: '7', gpio: '4', init: rpio.LOW, value: null },
+    { pin: '15', gpio: '22', init: rpio.LOW, value: null },
+    { pin: '31', gpio: '6', init: rpio.LOW, value: null },
+    { pin: '37', gpio: '26', init: rpio.LOW, value: null },
+    { pin: '11', gpio: '17', init: rpio.HIGH, value: null },
 ];
 
 // -----------------------------------------------------------------------
@@ -18,7 +19,7 @@ var inputs = [
 
 for (var i in inputs) {
     console.log('opening GPIO port ' + inputs[i].gpio + ' on pin ' + inputs[i].pin + ' as output');
-    rpio.open(inputs[i].pin, rpio.OUTPUT, rpio.LOW); // , rpio.INPUT, rpio.POLL_LOW);
+    rpio.open(inputs[i].pin, rpio.OUTPUT, inputs[i].init); // , rpio.INPUT, rpio.POLL_LOW);
 } // if
 
 // ------------------------------------------------------------------------
@@ -54,6 +55,28 @@ setInterval( function () {
 app.use(express.static(__dirname));
 
 // Express route for incoming requests for a single input
+
+app.get('/door/open', function (req, res) {
+    console.log('received API request OPEN_DOOR');
+
+    rpio.write(inputs[4].pin, rpio.LOW);
+    inputs[4].value = 'OPEN';
+
+    // send to client an inputs object as a JSON string
+    res.send('coin door open: ' + inputs[4]);
+    return;
+});
+
+app.get('/door/close', function (req, res) {
+    console.log('received API request CLOSE_DOOR');
+
+    rpio.write(inputs[4].pin, rpio.HIGH);
+    inputs[4].value = 'CLOSED';
+
+    // send to client an inputs object as a JSON string
+    res.send('coin door closed: ' + inputs[4]);
+    return;
+});
 
 app.get('/button/:id/press', function (req, res) {
     console.log('received API request BUTTON_PRESS: ' + req.params.id);
