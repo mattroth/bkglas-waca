@@ -83,9 +83,20 @@ app.get('/button/:id/press', function (req, res) {
     var buttonId = req.params.id;
 
     if (inputs[buttonId]) {
-        rpio.write(inputs[buttonId].pin, rpio.HIGH);
-        rpio.msleep(200);
-        rpio.write(inputs[buttonId].pin, rpio.LOW);
+
+        if (buttonId == 4) {
+            rpio.write(inputs[4].pin, rpio.LOW); // open door
+            rpio.msleep(500);
+            rpio.write(inputs[3].pin, rpio.HIGH); // press enter to enter menu
+            rpio.msleep(200);
+            rpio.write(inputs[3].pin, rpio.LOW);
+            rpio.msleep(500);
+            rpio.write(inputs[4].pin, rpio.HIGH); //close door
+        } else {
+            rpio.write(inputs[buttonId].pin, rpio.HIGH);
+            rpio.msleep(200);
+            rpio.write(inputs[buttonId].pin, rpio.LOW);
+        }
 
         // send to client an inputs object as a JSON string
         res.send('Button pressed: ' + inputs[buttonId]);
