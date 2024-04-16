@@ -7,10 +7,10 @@ var app       = express();
 
 // input port objects for our example
 var inputs = [
-    { pin: '7', gpio: '4', init: rpio.LOW, value: null }, //
-    { pin: '15', gpio: '22', init: rpio.LOW, value: null }, //
-    { pin: '31', gpio: '6', init: rpio.LOW, value: null }, //
-    { pin: '37', gpio: '26', init: rpio.LOW, value: null }, //
+    { pin: '7', gpio: '4', init: rpio.HIGH, value: null }, //
+    { pin: '15', gpio: '22', init: rpio.HIGH, value: null }, //
+    { pin: '31', gpio: '6', init: rpio.HIGH, value: null }, //
+    { pin: '37', gpio: '26', init: rpio.HIGH, value: null }, //
     { pin: '11', gpio: '17', init: rpio.HIGH, value: null }, // coin door
 ];
 
