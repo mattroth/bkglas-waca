@@ -85,13 +85,13 @@ app.get('/button/:id/press', function (req, res) {
     if (inputs[buttonId]) {
 
         if (buttonId == 4) {
-            rpio.write(inputs[4].pin, rpio.LOW); // open door
+            rpio.write(inputs[4].pin, rpio.HIGH); // open door
             rpio.msleep(500);
             rpio.write(inputs[3].pin, rpio.LOW); // press enter to enter menu
             rpio.msleep(200);
             rpio.write(inputs[3].pin, rpio.HIGH);
             rpio.msleep(500);
-            rpio.write(inputs[4].pin, rpio.HIGH); //close door
+            rpio.write(inputs[4].pin, rpio.LOW); //close door
         } else {
             rpio.write(inputs[buttonId].pin, rpio.LOW);
             rpio.msleep(200);
